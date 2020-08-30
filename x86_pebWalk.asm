@@ -1,5 +1,5 @@
-; PEB 
-; Author Connor McGarr
+; Windows 32-bit PEB Walking Shellcode 
+; Author Connor McGarr (@33y0re)
 
 .386				; 32-bit
 .model flat, stdcall		; __stdcall calling conventing for functions (uses the stack)
