@@ -28,6 +28,6 @@ _walkPEB:
 	cmp [edi], ebx 			; Have we found kernel32.dll?
 	jne _walkPEB
 
-end _start 					; Finished
+end _start 				; Finished
 	
 END
