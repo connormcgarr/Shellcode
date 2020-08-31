@@ -1,5 +1,5 @@
-; Windows 32-bit PEB Walking Shellcode 
-; Author Connor McGarr (@33y0re)
+; PEB 
+; Author Connor McGarr
 
 .386				; 32-bit
 .model flat, stdcall		; __stdcall calling conventing for functions (uses the stack)
@@ -15,10 +15,16 @@ _start:
 	mov eax, [eax+14h]	; Member of PEB_LDR_DATA, InMemoryOrderModuleList (a doubly linked list), is at an offset of 0x1c inside of PEB_LDR_DATA
 	call _walkPEB		; Call function to walk the loaded modules
 
-; Walk all loaded modules via InMemoryOrderModuleList in order to locate a specific DLL
+; Walk loaded modules via InMemoryOrderModuleList (doubly linked list where each list points to an LDR_DATA_TABLE_ENTRY)
+; Break upon loading a module with a predefined "name" and length
 _walkPEB:
-	ret
+	xor ebx, ebx		; Clear out EBX
+	xor ecx, ecx 		; Clear out ECX
+	mov ebx, 6b65726eh	; "kern"
+	mov eax, [eax-08h]	; Dereference InMemoryOrderModuleList to extract the LDR_DATA_TABLE_ENTRY structure
+	mov ecx, [eax+18h]	; Save base address of the current module via LDR_DATA_TABLE_ENTRY into ECX
+	mov eax, [eax+2Ch]	; Store name of module into EAX (_UNICODE_STRING)
 
 end _start 			; Finished
 	
-END
+END	
