@@ -24,6 +24,6 @@ _walkPEB PROC
 	jne _walkPEB				; Didn't equal 00? Keep looping
 	cmp [rdi], dl				; Have we located the desired module?
 	jne _walkPEB				; Didn't find it? Keep looping
-    ret                         ; Placeholder for action to be performed upon locating the desired DLL
+    	ret		                        ; Placeholder for action to be performed upon locating the desired DLL
 _walkPEB ENDP
 END
