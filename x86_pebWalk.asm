@@ -23,9 +23,9 @@ _walkPEB:
 	mov esi, [esi] 			; Dereference first member of the LDR_DATA_TABLE_ENTRY structure, InLoadOrderLinks, to get next module in the doubly linked list
 	mov eax, [esi+18h]		; Save base address of the current module via LDR_DATA_TABLE_ENTRY into EAX
 	mov edi, [esi+2Ch]		; Store name of module into EAX (_UNICODE_STRING)
-	cmp [esi + 12*2], cl 		; Is the 24th character (kernel32.dll has 12 characters * a null byte between each char/a terminating string) 0 (as it should be)?
+	cmp [edi + 12*2], cl 		; Is the 24th character (kernel32.dll has 12 characters * a null byte between each char/a terminating string) 0 (as it should be)?
 	jne _walkPEB 			; It is? Continue on. If it isn't, loop again
-	cmp [eax], ebx 			; Have we found kernel32.dll?
+	cmp [edi], ebx 			; Have we found kernel32.dll?
 	jne _walkPEB
 
 end _start 					; Finished
