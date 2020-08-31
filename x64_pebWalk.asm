@@ -5,11 +5,11 @@
 .code							; Start code section
 ALIGN							; Ensure alignment of the frame
 _start PROC
-	xor rcx, rcx				; Clear out RCX
-	xor rdx, rdx				; Clear out RDX
-	mov rax, gs:[60h]			; 64-bit uses GS segment register. Member of TEB structure, PEB, is at an offset of 0x30 inside TEB
-	mov rax, [rax+18h]			; Member of PEB structure, PEB_LDR_DATA, is at an offset of 0x18 inside PEB
-	mov rsi, [rax+10h]			; Member of PEB_LDR_DATA, InLoadOrderModuleList
+	xor rcx, rcx					; Clear out RCX
+	xor rdx, rdx					; Clear out RDX
+	mov rax, gs:[60h]				; 64-bit uses GS segment register. Member of TEB structure, PEB, is at an offset of 0x30 inside TEB
+	mov rax, [rax+18h]				; Member of PEB structure, PEB_LDR_DATA, is at an offset of 0x18 inside PEB
+	mov rsi, [rax+10h]				; Member of PEB_LDR_DATA, InLoadOrderModuleList
 	mov dl, 4bh					; "K" (Change this to the first letter of the DLL you want to find)
 	call _walkPEB
 _start ENDP
