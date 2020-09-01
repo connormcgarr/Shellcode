@@ -1,5 +1,6 @@
 ; PEB Walking Assembly (64-bit)
 ; Compares length of desired DLL to current DLL and also perfoms a check on the first letter of the DLL name
+; Assembled and linked with MASM
 ; Author: Connor McGarr (@33y0re)
 
 ; Declare ExitProcess
