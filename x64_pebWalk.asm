@@ -1,8 +1,13 @@
 ; PEB Walking Assembly (64-bit)
 ; Compares length of desired DLL to current DLL and also perfoms a check on the first letter of the DLL name
 ; Author: Connor McGarr (@33y0re)
+
+; Declare ExitProcess
+EXTERNDEF ExitProcess:near
+
 .data						; Start data section
 .code						; Start code section
+
 ALIGN						; Ensure alignment of the frame
 _start PROC
 	xor rcx, rcx				; Clear out RCX
@@ -24,6 +29,6 @@ _walkPEB PROC
 	jne _walkPEB				; Didn't equal 00? Keep looping
 	cmp [rdi], dl				; Have we located the desired module?
 	jne _walkPEB				; Didn't find it? Keep looping
-    	ret		                        ; Placeholder for action to be performed upon locating the desired DLL
+    	call ExitProcess                        ; We found the DLL? Exit the process
 _walkPEB ENDP
 END
